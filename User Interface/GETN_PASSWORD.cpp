@@ -9,8 +9,8 @@ void GETN_PASSWORD_ex1()
     GETN_MULTI_COLS_BRANCH(2, DYNA_MULTI_COLS_COMAPCT) 
 		GETN_PASSWORD(Key, "PassWord", " ")
 		GETN_PAD(dummy)
-		GETN_CHECK(View, "View", 0)
-		GETN_STR(Info, "Normal String", "Hidden Value") GETN_HINT_EX(FALSE, FALSE) 
+		GETN_CHECK(View, "View", 0) 
+		GETN_STR(Info, "", "") GETN_INFO
 	GETN_END_BRANCH(trBranch)
     
     if( GetNBox( treeTest, _pw_event_func_ex, "Title PassWord", "Input PassWord") )
@@ -19,15 +19,12 @@ void GETN_PASSWORD_ex1()
     }
 }
 
-int _pw_event_func_ex(TreeNode& tr, int nRow, int nEvent, DWORD& dwEnables, LPCSTR lpcszNodeName, WndContainer& getNContainer, string& strAux, string& strErrMsg)
-{
-    if(GETNE_ON_OK == nEvent)
-    {
-    	//int nRet = MessageBox(getNContainer.GetSafeHwnd(), "Save Password?", "Attention", MB_YESNO);    	
-    }
-    
-    //if(tr.Key)
-    	//tr.hint.strVal = tr.Key.strVal;
+static int _pw_event_func_ex(TreeNode& tr, int nRow, int nEvent, DWORD& dwEnables, LPCSTR lpcszNodeName, WndContainer& getNContainer, string& strAux, string& strErrMsg)
+{   
+    if(1 == tr.trBranch.View.nVal)
+    	tr.trBranch.Info.strVal = tr.trBranch.Key.strVal;
+    else
+    	tr.trBranch.Info.strVal = "";
     
     return 0;
 }
